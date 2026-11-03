@@ -1,0 +1,192 @@
+:root {
+  --paper: #f5f1ea;
+  --ink: #2b2a28;
+  --line: rgba(43, 42, 40, 0.07);
+  --accent: #b5654a;
+  --muted: #8a857c;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
+  touch-action: manipulation;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 32px 32px;
+  color: var(--ink);
+  font-family: var(--font-serif), Georgia, serif;
+  overflow: hidden;
+}
+
+.label {
+  position: fixed;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.7rem;
+  font-weight: 300;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.label.tl { top: 1.5rem; left: 1.5rem; }
+.label.tr { top: 1.5rem; right: 1.5rem; text-align: right; }
+.label.bl { bottom: 1.5rem; left: 1.5rem; }
+.label.br { bottom: 1.5rem; right: 1.5rem; text-align: right; }
+
+.heart {
+  position: relative;
+  width: min(80vw, 420px);
+  aspect-ratio: 200 / 185;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: inherit;
+  font: inherit;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  transition: transform 0.5s cubic-bezier(0.34, 1.4, 0.64, 1);
+  z-index: 1;
+}
+
+.heart svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.heart .shape {
+  fill: transparent;
+  stroke: var(--ink);
+  stroke-width: 0.8;
+  stroke-dasharray: 600;
+  stroke-dashoffset: 600;
+  animation: draw 2.4s ease-out forwards;
+  transition: fill 1.2s ease, stroke 1.2s ease;
+}
+
+.heart .guide {
+  fill: none;
+  stroke: var(--muted);
+  stroke-width: 0.4;
+  stroke-dasharray: 2 3;
+  opacity: 0;
+  animation: fade 1.5s ease 1.6s forwards;
+}
+
+.heart .dim {
+  font-family: var(--font-mono), monospace;
+  font-size: 5px;
+  fill: var(--muted);
+  letter-spacing: 0.1em;
+  opacity: 0;
+  animation: fade 1.5s ease 1.8s forwards;
+}
+
+.heart:hover .shape {
+  stroke: var(--accent);
+}
+
+.heart.open .shape {
+  fill: rgba(181, 101, 74, 0.12);
+  stroke: var(--accent);
+}
+
+.names {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 12%;
+  opacity: 0;
+  animation: fade 1.5s ease 1.2s forwards;
+}
+
+.names span {
+  font-size: clamp(2rem, 7vw, 3.4rem);
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: 0.04em;
+}
+
+.names .amp {
+  font-style: italic;
+  font-size: clamp(1.4rem, 4vw, 2rem);
+  color: var(--accent);
+  margin: 0.3rem 0;
+}
+
+.message {
+  margin-top: 2.5rem;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 1.2s ease, transform 1.2s ease;
+  pointer-events: none;
+}
+
+.message.show {
+  opacity: 1;
+  transform: none;
+}
+
+.message p {
+  margin: 0;
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(1.6rem, 5vw, 2.4rem);
+}
+
+.message code {
+  display: block;
+  margin-top: 0.8rem;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.75rem;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+}
+
+.hint {
+  margin-top: 1.5rem;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  opacity: 0;
+  animation: fade 1.5s ease 2.6s forwards;
+  transition: opacity 0.6s ease;
+}
+
+.hint.hide {
+  opacity: 0 !important;
+  animation: none;
+}
+
+@keyframes draw {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes fade {
+  to { opacity: 1; }
+}
+
+@media (max-width: 600px) {
+  .label.tr, .label.bl { display: none; }
+}
