@@ -3,8 +3,7 @@ import "./globals.css";
 
 const serif = Cormorant_Garamond({
   subsets: ["latin"],
-  weight: ["300", "500"],
-  style: ["normal", "italic"],
+  weight: ["500"],
   variable: "--font-serif",
 });
 
@@ -14,7 +13,7 @@ const mono = JetBrains_Mono({
   variable: "--font-mono",
 });
 
-export const metadata = { title: "Lucas & Sofia" };
+export const metadata = { title: "TabNews em construção" };
 
 export default function RootLayout({ children }) {
   return (
